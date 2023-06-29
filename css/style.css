@@ -1,0 +1,124 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #eee;
+    padding-top: 50px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 40%;
+    height: 60vh;
+    margin: auto;
+}
+
+.main {
+    background: #fff;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+    height: calc(100% - 40px);
+    overflow-y: auto;
+    z-index: 2;
+}
+
+
+.tabs {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    left: 10%;
+    top: 10px;
+    z-index: 1;
+}
+
+.tab {
+    padding: 10px 20px;
+    margin-right: 20px;
+    border-radius: 10px 10px 0 0;
+    background: #ddd;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+    box-shadow: none;
+    transition: background 0.3s;
+  pointer-events: auto;
+}
+
+.tab.active {
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    margin: 15px 0;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.buttons {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#reset-btn {
+    font-size: 20px;
+    border: none;
+    background: #dc3545;
+    color: #fff;
+    padding: 10px;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+#download-btn {
+    font-size: 20px;
+    border: none;
+    background: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#download-btn:hover {
+    background: #218838;
+}
