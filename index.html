@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarklet Configurator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" id="content-tab">Content</button>
+            <button class="tab" id="icon-tab">Icon</button>
+        </div>
+        <div class="main">
+            <div id="content">
+              <div class="input-group">
+                  <label for="script-select">Script:</label>
+                  <select id="script-select">
+                      <option value="" disabled selected>Please select one</option>
+                      <option value="jira-copy">Jira Copy</option>
+                  </select>
+              </div>
+              <div id="jira-copy" style="display: none;">
+                  <div class="input-group">
+                      <label for="html-text">HTML Text:</label>
+                      <input type="text" id="html-text">
+                  </div>
+                  <div class="input-group">
+                      <label for="html-link">HTML Link:</label>
+                      <input type="text" id="html-link">
+                  </div>
+                  <div class="input-group">
+                      <label for="plain-text">Plain Text:</label>
+                      <input type="text" id="plain-text">
+                  </div>
+              </div>
+          </div>
+            <div id="icon" style="display: none;">
+            </div>
+        </div>
+        <div class="buttons">
+            <button id="reset-btn">&#x21bb;</button>
+            <button id="download-btn">Download</button>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>
