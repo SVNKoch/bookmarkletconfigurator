@@ -16,8 +16,10 @@ document.getElementById('script-select').addEventListener('change', function() {
     var script = document.getElementById('script-select').value;
     if (script === 'jira-copy') {
         document.getElementById('jira-copy').style.display = 'block';
-    } else {
+        document.getElementById('custom-script').style.display = 'none';
+    } else if (script === 'custom') {
         document.getElementById('jira-copy').style.display = 'none';
+        document.getElementById('custom-script').style.display = 'block';
     }
 });
 
