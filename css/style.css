@@ -99,31 +99,25 @@ textarea#custom-javascript {
 }
 
 #reset-btn {
-    font-size: 20px;
-    border: none;
     background: #dc3545;
-    color: #fff;
-    padding: 10px;
-    border-radius: 25px;
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 44px;
     margin-right: 10px;
-    margin-top: 10px;
 }
 
 #download-btn {
+    background: #28a745;
+    flex-grow: 1;
+}
+
+#download-btn, 
+#reset-btn {
+    height: 44px;
     font-size: 20px;
     border: none;
-    background: #28a745;
     color: #fff;
     padding: 10px 20px;
     border-radius: 25px;
     cursor: pointer;
-    flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
