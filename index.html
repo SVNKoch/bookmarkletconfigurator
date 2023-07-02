@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,31 +21,16 @@
                 <div class="input-group">
                     <label for="script-select">Script:</label>
                     <select id="script-select">
-                        <option value="" disabled selected>Please select one</option>
-                        <option value="jira-copy">Jira Copy</option>
-                        <option value="custom">Custom Javascript Code</option>
+                        <!-- Script Options provided by Javascript -->
                     </select>
                 </div>
-                <div id="jira-copy" style="display: none;">
-                    <div class="input-group">
-                        <label for="html-text">HTML Text:</label>
-                        <input type="text" id="html-text">
-                    </div>
-                    <div class="input-group">
-                        <label for="html-link">HTML Link:</label>
-                        <input type="text" id="html-link">
-                    </div>
-                    <div class="input-group">
-                        <label for="plain-text">Plain Text:</label>
-                        <input type="text" id="plain-text">
-                    </div>
+                <div class="input-group">
+                    <label for="template-select">Templates:</label>
+                    <select id="template-select">
+                        <!-- Template Options provided by Javascript -->
+                    </select>
                 </div>
-                <div id="custom-script" style="display: none;">
-                    <div class="input-group">
-                        <label for="custom-javascript">Javascript Code:</label>
-                        <textarea id="custom-javascript"></textarea>
-                    </div>
-                </div>
+                <div id="script-specific-html"></div>
             </div>
             <div id="icon" style="display: none;">
             </div>
@@ -54,6 +40,8 @@
             <button id="download-btn">Download</button>
         </div>
     </div>
-    <script src="build/app.js"></script>
+    <script type="module" src="build/app.js"></script>
+    <script type="module" src="build/htmlCode.js"></script>
 </body>
+
 </html>
