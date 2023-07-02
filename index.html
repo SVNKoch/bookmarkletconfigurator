@@ -17,28 +17,35 @@
         </div>
         <div class="main">
             <div id="content">
-              <div class="input-group">
-                  <label for="script-select">Script:</label>
-                  <select id="script-select">
-                      <option value="" disabled selected>Please select one</option>
-                      <option value="jira-copy">Jira Copy</option>
-                  </select>
-              </div>
-              <div id="jira-copy" style="display: none;">
-                  <div class="input-group">
-                      <label for="html-text">HTML Text:</label>
-                      <input type="text" id="html-text">
-                  </div>
-                  <div class="input-group">
-                      <label for="html-link">HTML Link:</label>
-                      <input type="text" id="html-link">
-                  </div>
-                  <div class="input-group">
-                      <label for="plain-text">Plain Text:</label>
-                      <input type="text" id="plain-text">
-                  </div>
-              </div>
-          </div>
+                <div class="input-group">
+                    <label for="script-select">Script:</label>
+                    <select id="script-select">
+                        <option value="" disabled selected>Please select one</option>
+                        <option value="jira-copy">Jira Copy</option>
+                        <option value="custom">Custom Javascript Code</option>
+                    </select>
+                </div>
+                <div id="jira-copy" style="display: none;">
+                    <div class="input-group">
+                        <label for="html-text">HTML Text:</label>
+                        <input type="text" id="html-text">
+                    </div>
+                    <div class="input-group">
+                        <label for="html-link">HTML Link:</label>
+                        <input type="text" id="html-link">
+                    </div>
+                    <div class="input-group">
+                        <label for="plain-text">Plain Text:</label>
+                        <input type="text" id="plain-text">
+                    </div>
+                </div>
+                <div id="custom-script" style="display: none;">
+                    <div class="input-group">
+                        <label for="custom-javascript">Javascript Code:</label>
+                        <textarea id="custom-javascript"></textarea>
+                    </div>
+                </div>
+            </div>
             <div id="icon" style="display: none;">
             </div>
         </div>
