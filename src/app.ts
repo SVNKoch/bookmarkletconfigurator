@@ -19,8 +19,8 @@ import { JiraCopyScript } from './bookmarkletConfiguration/jira.js';
 
 const scripts: Script<Template<HtmlCode>, HtmlCode>[] = [new CustomScript(), new JiraCopyScript()];
 
+const scriptSelect = document.getElementById('script-select') as HTMLSelectElement;
 const templateSelect = document.getElementById('template-select') as HTMLSelectElement;
-const scriptSelect: HTMLSelectElement = document.getElementById('script-select') as HTMLSelectElement;
 
 setupScriptOptions();
 onScriptChangeUpdateTemplates();
@@ -62,7 +62,7 @@ function onScriptChangeUpdateTemplates(): void {
     scriptSelect.onchange = (event) => {
         let contentDiv = document.getElementById("script-specific-html")!;
 
-        let selectedScript = scripts[Number((event.target as HTMLSelectElement).value)];
+        let selectedScript = getSelectedScript();
         contentDiv.innerHTML = selectedScript.getHtmlCode();
 
         setupTemplateOptionsForSelectedScript(selectedScript);
@@ -84,10 +84,21 @@ function setupTemplateOptionsForSelectedScript(selectedScript: Script<Template<H
 
 function onTemplateSelectionFillInTemplate(): void {
     templateSelect.onchange = (event) => {
-        let selectedScriptIndex = Number((document.getElementById('script-select') as HTMLSelectElement).value);
-        let selectedScript = scripts[selectedScriptIndex];
-        let selectedTemplate = selectedScript.templates[Number((event.target as HTMLSelectElement).value)];
+        let selectedTemplate = getSelectedTemplate();
         selectedTemplate.fillInTemplate();
     };
+}
+
+function getSelectedTemplate(): Template<HtmlCode> {
+    let selectedTemplateIndex = Number((document.getElementById('template-select') as HTMLSelectElement).value);
+    let selectedScript = getSelectedScript();
+    let selectedTemplate = selectedScript.templates[selectedTemplateIndex];
+    return selectedTemplate;
+}
+
+function getSelectedScript(): Script<Template<HtmlCode>, HtmlCode> {
+        let selectedScriptIndex = Number((document.getElementById('script-select') as HTMLSelectElement).value);
+        let selectedScript = scripts[selectedScriptIndex];
+    return selectedScript;
 }
 
