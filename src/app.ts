@@ -21,22 +21,20 @@ const scripts: Script<Template<HtmlCode>, HtmlCode>[] = [new CustomScript(), new
 
 const scriptSelect = document.getElementById('script-select') as HTMLSelectElement;
 const templateSelect = document.getElementById('template-select') as HTMLSelectElement;
+const downloadButton = document.getElementById('download-btn') as HTMLButtonElement;
+const resetButton = document.getElementById('reset-btn') as HTMLButtonElement;
+
+
+templateSelect.disabled = true;
+downloadButton.disabled = true;
 
 setupScriptOptions();
 onScriptChangeUpdateTemplates();
 
 onTemplateSelectionFillInTemplate();
 
+onDownloadCreateFileAndDownload();
 
-document.getElementById('download-btn')!.addEventListener('click', function () {
-    var data = new Blob(["placeholder text"], { type: 'text/plain' }); //TODO: generate download file content
-    var url = window.URL.createObjectURL(data);
-
-    var link = document.createElement('a');
-    link.download = 'file.txt';
-    link.href = url;
-    link.click();
-});
 
 function setupScriptOptions(): void {
     scriptSelect.add(createDefaultOption('Please select one', true));
@@ -60,6 +58,9 @@ function createDefaultOption(title: string, disabled: boolean = false) {
 
 function onScriptChangeUpdateTemplates(): void {
     scriptSelect.onchange = (event) => {
+        templateSelect.disabled = false;
+        downloadButton.disabled = false;
+
         let contentDiv = document.getElementById("script-specific-html")!;
 
         let selectedScript = getSelectedScript();
@@ -97,8 +98,20 @@ function getSelectedTemplate(): Template<HtmlCode> {
 }
 
 function getSelectedScript(): Script<Template<HtmlCode>, HtmlCode> {
-        let selectedScriptIndex = Number((document.getElementById('script-select') as HTMLSelectElement).value);
-        let selectedScript = scripts[selectedScriptIndex];
+    let selectedScriptIndex = Number((document.getElementById('script-select') as HTMLSelectElement).value);
+    let selectedScript = scripts[selectedScriptIndex];
     return selectedScript;
 }
 
+function onDownloadCreateFileAndDownload() {
+    downloadButton.addEventListener('click', function () {
+        var fileContent = getSelectedScript().generateBookmarkletSourceCode();
+        var data = new Blob([fileContent], { type: 'text/plain' });
+        var url = window.URL.createObjectURL(data);
+
+        var link = document.createElement('a');
+        link.download = 'file.txt';
+        link.href = url;
+        link.click();
+    });
+}

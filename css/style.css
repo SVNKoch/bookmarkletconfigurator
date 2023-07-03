@@ -98,17 +98,6 @@ textarea#custom-javascript {
     justify-content: space-between;
 }
 
-#reset-btn {
-    background: #dc3545;
-    width: 44px;
-    margin-right: 10px;
-}
-
-#download-btn {
-    background: #28a745;
-    flex-grow: 1;
-}
-
 #download-btn, 
 #reset-btn {
     height: 44px;
@@ -124,6 +113,22 @@ textarea#custom-javascript {
     margin-top: 10px;
 }
 
+#download-btn {
+    background: #28a745;
+    flex-grow: 1;
+}
+
 #download-btn:hover {
     background: #218838;
+}
+
+#download-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+}
+
+#reset-btn {
+    background: #dc3545;
+    width: 44px;
+    margin-right: 10px;
 }
