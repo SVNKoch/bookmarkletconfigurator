@@ -35,6 +35,8 @@ onTemplateSelectionFillInTemplate();
 
 onDownloadCreateFileAndDownload();
 
+onResetButtonResetScript();
+
 
 function setupScriptOptions(): void {
     scriptSelect.add(createDefaultOption('Please select one', true));
@@ -71,7 +73,7 @@ function onScriptChangeUpdateTemplates(): void {
 }
 
 function setupTemplateOptionsForSelectedScript(selectedScript: Script<Template<HtmlCode>, HtmlCode>): void {
-    templateSelect.innerHTML = '';
+    clearInnerHtml();
 
     templateSelect.add(createDefaultOption('None'));
 
@@ -81,6 +83,10 @@ function setupTemplateOptionsForSelectedScript(selectedScript: Script<Template<H
         option.text = template.name;
         templateSelect.add(option);
     });
+}
+
+function clearInnerHtml() {
+    templateSelect.innerHTML = '';
 }
 
 function onTemplateSelectionFillInTemplate(): void {
@@ -113,5 +119,15 @@ function onDownloadCreateFileAndDownload() {
         link.download = 'file.txt';
         link.href = url;
         link.click();
+    });
+}
+
+function onResetButtonResetScript() {
+    resetButton.addEventListener('click', function () {
+        scriptSelect.selectedIndex = -1
+        scriptSelect.dispatchEvent(new Event('change'));
+        templateSelect.selectedIndex = -1
+        templateSelect.dispatchEvent(new Event('change'));
+        clearInnerHtml();
     });
 }
