@@ -1,38 +1,17 @@
-export abstract class HtmlCode {
-    abstract getHtmlCode(): string;
+import { Script, Template, HtmlCode } from '../base.js';
 
-    injectHtml(targetElementId: string): void {
-        const targetElement = document.getElementById(targetElementId);
-        if (targetElement) {
-            targetElement.innerHTML = this.getHtmlCode();
-        }
-    }
-}
+export class JiraCopyScript extends Script<JiraCopyTemplate, JiraCopyHtml> {
+    name = "Copy Jira URL";
 
-export class CustomScriptHtml extends HtmlCode {
-    private textareaId = 'custom-javascript';
-
-    getHtmlCode(): string {
-        return `
-            <div class="input-group">
-                <label for="${this.textareaId}">Javascript Code:</label>
-                <textarea id="${this.textareaId}"></textarea>
-            </div>
-        `;
+    constructor() {
+        const htmlCode = new JiraCopyHtml();
+        super([new JiraKeyTemplate(htmlCode), new JiraKeySummaryTemplate(htmlCode), new JiraComponentsSummaryTemplate(htmlCode)], htmlCode);
     }
 
-    private getJavascriptInputField(): HTMLTextAreaElement {
-        return document.getElementById(this.textareaId) as HTMLTextAreaElement;
-    }
-
-    getJavascriptInputFieldText(): string {
-        const textareaElement = this.getJavascriptInputField();
-        return textareaElement?.value || '';
-    }
-
-    setJavascriptInputFieldText(javascript: string): void {
-        const textareaElement = this.getJavascriptInputField();
-        textareaElement.value = javascript;
+    generateBookmarkletSourceCode(): string {
+        return this.htmlCode.getHtmlText() + "\n" +
+            this.htmlCode.getHtmlLink() + "\n" +
+            this.htmlCode.getPlainText();
     }
 }
 
@@ -98,5 +77,46 @@ export class JiraCopyHtml extends HtmlCode {
     setPlainText(plainText: string): void {
         const plainTextInputField = this.getPlainTextInputField();
         plainTextInputField.value = plainText;
+    }
+}
+
+export abstract class JiraCopyTemplate extends Template<JiraCopyHtml> {
+    fillInJiraCopyTemplate(htmlText: string, htmlLink: string, plainText: string): void {
+        this.htmlCode.setHtmlText(htmlText);
+        this.htmlCode.setHtmlLink(htmlLink);
+        this.htmlCode.setPlainText(plainText);
+    }
+}
+
+export class JiraKeySummaryTemplate extends JiraCopyTemplate {
+    name = "Key - Summary";
+
+    fillInTemplate(): void {
+        var htmlText = "${issueKey} - ${summary}";
+        var htmlLink = "${issueUrl}";
+        var plainText = htmlText;
+        this.fillInJiraCopyTemplate(htmlText, htmlLink, plainText);
+    }
+}
+
+export class JiraKeyTemplate extends JiraCopyTemplate {
+    name = "Key";
+
+    fillInTemplate(): void {
+        var htmlText = "${issueKey}";
+        var htmlLink = "${issueUrl}";
+        var plainText = htmlText;
+        this.fillInJiraCopyTemplate(htmlText, htmlLink, plainText);
+    }
+}
+
+export class JiraComponentsSummaryTemplate extends JiraCopyTemplate {
+    name = "Components: Summary";
+
+    fillInTemplate(): void {
+        var htmlText = "${issueComponents}: ${summary}";
+        var htmlLink = "${issueUrl}";
+        var plainText = htmlText;
+        this.fillInJiraCopyTemplate(htmlText, htmlLink, plainText);
     }
 }

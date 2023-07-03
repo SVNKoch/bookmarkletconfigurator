@@ -13,9 +13,9 @@ document.getElementById('icon-tab')!.addEventListener('click', function () {
 });
 
 
-import { HtmlCode, CustomScriptHtml, JiraCopyHtml } from './htmlCode.js';
-import { Template } from './template.js';
-import { CustomScript, JiraCopyScript, Script } from './script.js';
+import { Script, HtmlCode, Template } from './base.js';
+import { CustomScript } from './bookmarkletConfiguration/custom.js';
+import { JiraCopyScript } from './bookmarkletConfiguration/jira.js';
 
 const scripts: Script<Template<HtmlCode>, HtmlCode>[] = [new CustomScript(), new JiraCopyScript()];
 
