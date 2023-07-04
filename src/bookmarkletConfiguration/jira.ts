@@ -1,17 +1,36 @@
-import { Script, Template, HtmlCode } from '../base.js';
+import { Script, Template, HtmlCode, Placeholder, PlaceholderReplacer } from '../base.js';
+
+const IssueKeyPlaceholder = new Placeholder('id', 'Replaced with Jira ID', getIssueId);
+const SummaryPlaceholder = new Placeholder('summary', 'Replaced with Jira ID', getIssueSummary);
+const IssueUrlPlaceholder = new Placeholder('issueUrl', 'Replaced with Jira ID', getIssueUrl);
+const IssueComponentsPlaceholder = new Placeholder('components', 'issueComponentaced with Jira ID', getIssueComponents);
+
+const placeholders: Placeholder[] = [
+    IssueKeyPlaceholder, SummaryPlaceholder, IssueUrlPlaceholder, IssueComponentsPlaceholder
+];
 
 export class JiraCopyScript extends Script<JiraCopyTemplate, JiraCopyHtml> {
     name = "Copy Jira URL";
 
     constructor() {
         const htmlCode = new JiraCopyHtml();
-        super([new JiraKeyTemplate(htmlCode), new JiraKeySummaryTemplate(htmlCode), new JiraComponentsSummaryTemplate(htmlCode)], htmlCode);
+        super([new JiraKeyTemplate(htmlCode), new JiraKeySummaryTemplate(htmlCode), new JiraComponentsSummaryTemplate(htmlCode)], htmlCode, placeholders);
     }
 
     generateBookmarkletSourceCode(): string {
-        return this.htmlCode.getHtmlText() + "\n" +
-            this.htmlCode.getHtmlLink() + "\n" +
-            this.htmlCode.getPlainText();
+        const replacer = new PlaceholderReplacer(this.placeholders);
+
+        let htmlText = replacer.replacePlaceholder(this.htmlCode.getHtmlText());
+        let htmlLink = replacer.replacePlaceholder(this.htmlCode.getHtmlLink());
+        let plainText = replacer.replacePlaceholder(this.htmlCode.getPlainText());
+
+        let functions = replacer.getUsedPlaceholderFunctions();
+
+        return "" +
+            "HtmlText: \"" + htmlText + "\"" + "\n" +
+            "PlainText: \"" + plainText + "\"" + "\n" +
+            "HtmlLink: \"" + htmlLink + "\"" + "\n" +
+            functions;
     }
 }
 
@@ -92,8 +111,9 @@ export class JiraKeySummaryTemplate extends JiraCopyTemplate {
     name = "Key - Summary";
 
     fillInTemplate(): void {
-        var htmlText = "${issueKey} - ${summary}";
-        var htmlLink = "${issueUrl}";
+
+        var htmlText = `${IssueKeyPlaceholder.variable} - ${SummaryPlaceholder.variable}`;
+        var htmlLink = `${IssueUrlPlaceholder.variable}`;
         var plainText = htmlText;
         this.fillInJiraCopyTemplate(htmlText, htmlLink, plainText);
     }
@@ -103,8 +123,8 @@ export class JiraKeyTemplate extends JiraCopyTemplate {
     name = "Key";
 
     fillInTemplate(): void {
-        var htmlText = "${issueKey}";
-        var htmlLink = "${issueUrl}";
+        var htmlText = `${IssueKeyPlaceholder.variable}`;
+        var htmlLink = `${IssueUrlPlaceholder.variable}`;
         var plainText = htmlText;
         this.fillInJiraCopyTemplate(htmlText, htmlLink, plainText);
     }
@@ -114,9 +134,25 @@ export class JiraComponentsSummaryTemplate extends JiraCopyTemplate {
     name = "Components: Summary";
 
     fillInTemplate(): void {
-        var htmlText = "${issueComponents}: ${summary}";
-        var htmlLink = "${issueUrl}";
+        var htmlText = `${IssueComponentsPlaceholder.variable}: ${SummaryPlaceholder.variable}`;
+        var htmlLink = `${IssueUrlPlaceholder.variable}`;
         var plainText = htmlText;
         this.fillInJiraCopyTemplate(htmlText, htmlLink, plainText);
     }
+}
+
+function getIssueId(): string {
+    return "id"; //TODO: actual implementation
+}
+
+function getIssueSummary(): string {
+    return "summary"; //TODO: actual implementation
+}
+
+function getIssueUrl(): string {
+    return "url"; //TODO: actual implementation
+}
+
+function getIssueComponents(): string {
+    return "components"; //TODO: actual implementation
 }
