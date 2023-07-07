@@ -26,6 +26,10 @@ export class JiraCopyScript extends Script<JiraCopyTemplate, JiraCopyHtml> {
 
         let functions = replacer.getUsedPlaceholderFunctions();
 
+        new SourceCodeGenerator()
+            .clipBoardData(`"${plainText}"`, `"${htmlText}"`, `"${htmlLink}"`)
+            .extraFunctions(functions)
+            .generate();
         return "" +
             "HtmlText: \"" + htmlText + "\"" + "\n" +
             "PlainText: \"" + plainText + "\"" + "\n" +
